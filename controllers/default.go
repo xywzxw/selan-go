@@ -5,7 +5,6 @@ type MainController struct {
 }
 
 func (c *MainController) Get() {
-	c.Data["Website"] = "beego.me"
-	c.Data["Email"] = "astaxie@gmail.com"
+	c.Data["Message"] = "色兰网数据接口-go语言"
 	c.TplName = "index.tpl"
 }
