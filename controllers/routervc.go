@@ -34,10 +34,14 @@ func (c *RouterController) Get() {
 		_, ok := ctx.Input.Session("uid").(int)
 		if !ok {
 			// ctx.Data["Message"] = "拦截器进入"
-			ctx.Redirect(302, "/index")
+			ctx.Redirect(302, "/login")
 		}
 	}
 	beego.InsertFilter("/router/:id([0-9]+)", beego.BeforeRouter, FilterUser)
+	c.Data["path"] = path
+	c.Data["cname"] = cname
+	c.Data["port"] = port
+	c.Data["page"] = cn
 
-	c.TplName = cn
+	c.TplName = "index.html"
 }
