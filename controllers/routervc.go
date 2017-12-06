@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"selan/utils"
 	"strings"
 
 	"github.com/astaxie/beego"
@@ -20,10 +21,13 @@ func (c *RouterController) Get() {
 	cname := h[0] //域名
 	port := h[1]  //端口号
 
-	cn := beego.AppConfig.String(cname) //从配置文件中获取域名对应的页面
+	path := beego.AppConfig.String("domainpath")
+	area := c.GetString("area")
 
-	printinfo := "host:" + host + "--------" + "cname:" + cname + "--------" + "cn:" + cn + "--------" + "port:" + port
+	cn := utils.GetValue(path, area, cname).(string)
 
+	printinfo := "path:" + path + "-----------area:" + area + "-----------host:" + host + "--------cname:" + cname + "--------cn:" + cn + "--------port:" + port
+	// fmt.Println(printinfo)
 	c.Data["Message"] = printinfo
 
 	var FilterUser = func(ctx *context.Context) {

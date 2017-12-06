@@ -3,6 +3,7 @@ package dbhelper
 import (
 	"database/sql"
 	"fmt"
+	"selan/utils"
 	"strings"
 
 	"github.com/astaxie/beego"
@@ -11,7 +12,14 @@ import (
 
 func SQLJSONData(sqlStr string) string {
 
-	dbpath := beego.AppConfig.String("dbuser") + ":" + beego.AppConfig.String("dbpass") + "@tcp(" + beego.AppConfig.String("dburl") + ":" + beego.AppConfig.String("dbport") + ")/" + beego.AppConfig.String("dbname") + "?charset=utf8"
+	path := beego.AppConfig.String("domainpath")
+	dbuser := utils.GetValue(path, "db", "dbuser").(string)
+	dbpass := utils.GetValue(path, "db", "dbpass").(string)
+	dburl := utils.GetValue(path, "db", "dburl").(string)
+	dbport := utils.GetValue(path, "db", "dbport").(string)
+	dbname := utils.GetValue(path, "db", "dbname").(string)
+
+	dbpath := dbuser + ":" + dbpass + "@tcp(" + dburl + ":" + dbport + ")/" + dbname + "?charset=utf8"
 	db, err := sql.Open("mysql", dbpath)
 	if err != nil {
 		panic(err.Error())

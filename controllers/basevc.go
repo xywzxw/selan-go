@@ -14,7 +14,7 @@ type BaseController struct {
 
 // Prepare 基控制器所有请求先走的方法
 func (this *BaseController) Prepare() {
-	filter(this)
+	// filter(this)
 	method := this.Ctx.Request.Method
 	if method == "GET" {
 		fmt.Println("GET处理的")
