@@ -44,4 +44,5 @@ func (c *RouterController) Get() {
 	c.Data["page"] = cn
 
 	c.TplName = "index.html"
+
 }
