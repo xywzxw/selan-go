@@ -59,21 +59,14 @@ func WriteFile(path string, body string) bool {
 			m := h[len(h)-1]
 			v := path[0 : len(path)-len(m)]
 			err1 := os.MkdirAll(v, os.ModePerm)
+			var result bool
 			if err1 != nil {
-				fmt.Println("创建文件夹失败")
-				return false
+				fmt.Println("项目文件目录创建失败")
+				result = false
 			} else {
-				/*
-					fout1, err2 := os.Create(path) //根据路径创建File的内存地址
-					if err2 != nil {
-						return false
-					}
-					defer fout1.Close() //延迟关闭资源
-					fout1.WriteString(body)
-					return true
-				*/
-				return WriteFile(path, body)
+				result = WriteFile(path, body)
 			}
+			return result
 		}
 		fmt.Println(path, err)
 		return false
