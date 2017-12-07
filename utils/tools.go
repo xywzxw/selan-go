@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/astaxie/beego"
 	"github.com/luckykris/go-utilbox/Conf/ReadConf"
@@ -53,6 +54,27 @@ func WriteFile(path string, body string) bool {
 	fout, err := os.Create(path) //根据路径创建File的内存地址
 	defer fout.Close()           //延迟关闭资源
 	if err != nil {
+		if os.IsNotExist(err) {
+			h := strings.Split(path, "/") //拆串
+			m := h[len(h)-1]
+			v := path[0 : len(path)-len(m)]
+			err1 := os.MkdirAll(v, os.ModePerm)
+			if err1 != nil {
+				fmt.Println("创建文件夹失败")
+				return false
+			} else {
+				/*
+					fout1, err2 := os.Create(path) //根据路径创建File的内存地址
+					if err2 != nil {
+						return false
+					}
+					defer fout1.Close() //延迟关闭资源
+					fout1.WriteString(body)
+					return true
+				*/
+				return WriteFile(path, body)
+			}
+		}
 		fmt.Println(path, err)
 		return false
 	}
