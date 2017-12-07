@@ -1,7 +1,3 @@
-server{
-    listen 999; 
-    server_name baidu.com; 
-    root www/sd/dd;
     index index.php index.html index.htm default.php default.htm default.html;
 
     #SSL-START SSL相关配置，请勿删除或修改下一行带注释的404规则
@@ -38,5 +34,3 @@ server{
         expires      12h;
         access_log off; 
     }
-    access_log  /www/wwwlogs/{{.cname}}.log;
-}
