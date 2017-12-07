@@ -69,7 +69,7 @@ func CreateTemp(port string, name string, path string) string {
 	nginxpath := beego.AppConfig.String("domainpath")
 	v := "server{\n    listen " + port + "; \n    server_name " + name + "; \n    root " + path + ";\n    access_log  /www/wwwlogs/" + name + ".log;\n}"
 	substr := v[0 : len(v)-1]
-	substr += ReadFile(GetValue(nginxpath, "nginx", "nginxconf").(string))
+	substr += ReadFile(GetValue(nginxpath, "nginx", "nginxConf").(string))
 	substr += "}"
 	return substr
 }

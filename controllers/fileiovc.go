@@ -14,15 +14,15 @@ type FileController struct {
 func (c *FileController) Get() {
 	path := beego.AppConfig.String("domainpath")
 
-	ng_port := utils.GetValue(path, "nginx", "ng_port").(string)
-	ng_cname := utils.GetValue(path, "nginx", "ng_cname").(string)
-	ng_path := utils.GetValue(path, "nginx", "ng_path").(string)
-	ng_conf_path := utils.GetValue(path, "nginx", "ng_conf_path").(string)
-	data := utils.CreateTemp(ng_port, ng_cname, ng_path)
-	c.Data["path"] = data
-	fmt.Println(data)
-	c.TplName = "temp.tpl"
-	result := utils.WriteFile(ng_conf_path, data)
+	ngPort := utils.GetValue(path, "nginx", "ngPort").(string)
+	ngCname := utils.GetValue(path, "nginx", "ngCname").(string)
+	ngPath := utils.GetValue(path, "nginx", "ngPath").(string)
+	ngConfPath := utils.GetValue(path, "nginx", "ngConfPath").(string)
+	data := utils.CreateTemp(ngPort, ngCname, ngPath)
+	// c.Data["path"] = data
+	// fmt.Println(data)
+	c.TplName = "index.tpl"
+	result := utils.WriteFile(ngConfPath, data)
 	if result {
 		fmt.Println("网站配置创建成功")
 	} else {
